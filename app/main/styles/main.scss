@@ -24,6 +24,11 @@ $ionicons-font-path: "../assets/fonts" !default;
 // added via yo m-ionic:component subgenerator
 @import '../components/mini/mini-component';
 
+ion-content {
+    background-image: url("../assets/images/wood.jpg");
+    background-size: contain;
+}
+
 .wrap {
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -32,4 +37,68 @@ $ionicons-font-path: "../assets/fonts" !default;
 
 .card {
     margin: 5px 10px;
+}
+
+img.status-icon {
+    background-color: #000;
+    border: 3px solid #b7842c;
+    border-radius: 10px;
+}
+
+.status-house {
+    white-space: normal;
+    margin: 0 auto;
+    text-align: center;
+}
+
+span.hint-text {
+    color: #BBB;
+    font-style: italic;
+}
+
+i {
+    color: #FFF;
+}
+
+input {
+    color: #FFF !important;
+    font-size: 1.3em !important;
+    width: 100%;
+}
+
+input.number-input {
+    font-size: 2em !important;
+}
+
+input.number-input.max {
+    color: rgb(199, 199, 199) !important;
+    font-weight: 800;
+}
+
+input.number-input.center {
+    text-align: center;
+}
+
+.overheal {
+    color: rgb(14, 95, 14) !important;
+}
+
+.overheal-glow {
+    text-shadow: 0px 0px 20px rgb(25, 189, 25);
+}
+
+.animated {
+    transition: all 0.3s;
+}
+
+div.card ion-list,
+div.card ion-list ion-item,
+div.card ion-list ion-item input {
+    background: none;
+}
+
+.card {
+    background-image: url("../assets/images/diagmonds.png");
+    border: 5px solid;
+    border-radius: 20px;
 }

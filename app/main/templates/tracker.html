@@ -8,23 +8,42 @@
 
   <ion-content>
     <div class="row wrap">
-      <div class="col col-20" ng-repeat="ally in trackerVm.allies">
+      <div class="col col-20" ng-repeat="ally in trackerVm.allies | filter: {deleted: false}">
         <div class="card">
           <ion-list>
-            <ion-item class="item item-icon-left">
+            <ion-item class="item item-icon-left" ng-mouseover="ally.hover = 'Name'" ng-mouseleave="ally.hover = ''" >
               <input type="text" ng-model="ally.name">
               <i class="icon ion-pricetag"></i>
             </ion-item>
             <ion-item class="item item-icon-left">
-              <i class="icon ion-android-favorite"></i>
-              {{ ally.hp }}
-            </ion-item>
-            <ion-item class="item item-icon-left">
-              <i class="icon ion-help"></i>
+                <i class="icon ion-android-favorite animated" ng-class="{'overheal-glow' : ally.hp > ally.maxhp}" ng-mouseover="ally.hover = ((ally.hp / ally.maxhp)*100).toFixed(0) + '%'" ng-mouseleave="ally.hover = ''" ng-style="{'opacity': (ally.hp / ally.maxhp)}"></i>
+                <input class="number-input center animated" ng-class="{'overheal' : ally.hp > ally.maxhp}" ng-mouseover="ally.hover = 'Current HP'" ng-mouseleave="ally.hover = ''" type="number" min="0" step="1" ng-model="ally.hp">
+                <input class="number-input max center" ng-mouseover="ally.hover = 'Max HP'" ng-mouseleave="ally.hover = ''" type="number" min="1" step="1" ng-model="ally.maxhp">
             </ion-item>
             <ion-item class="item item-icon-left item-icon-right">
-              <i class="icon ion-android-settings"></i>
-              <i class="icon ion-android-delete"></i>
+                <i ng-click="trackerVm.addHealth(ally)" class="icon ion-plus" ng-mouseover="ally.hover = 'Add HP'" ng-mouseleave="ally.hover = ''"></i>
+                <input class="number-input center" type="number" min="1" step="1" ng-model="ally.changeHpValue">
+                <i ng-click="trackerVm.remHealth(ally)" class="icon ion-minus" ng-mouseover="ally.hover = 'Remove HP'" ng-mouseleave="ally.hover = ''"></i>
+            </ion-item>
+            <ion-item class="item status-house">
+              <img ng-mouseover="ally.hover = 'Blinded'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'blind')" class="status-icon" ng-src="main/assets/images/{{ally.status.blind && 'blind-on.png' || 'blind-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Charmed'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'charm')" class="status-icon" ng-src="main/assets/images/{{ally.status.charm && 'charmed-on.png' || 'charmed-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Deafened'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'deaf')" class="status-icon" ng-src="main/assets/images/{{ally.status.deaf && 'deaf-on.png' || 'deaf-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Fatigued'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'fatigue')" class="status-icon" ng-src="main/assets/images/{{ally.status.fatigue && 'fatigue-on.png' || 'fatigue-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Grappled'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'grapple')" class="status-icon" ng-src="main/assets/images/{{ally.status.grapple && 'grappled-on.png' || 'grappled-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Incapacitated'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'incap')" class="status-icon" ng-src="main/assets/images/{{ally.status.incap && 'incapacitate-on.png' || 'incapacitate-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Invisible'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'invis')" class="status-icon" ng-src="main/assets/images/{{ally.status.invis && 'invis-on.png' || 'invis-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Paralyzed'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'paralyze')" class="status-icon" ng-src="main/assets/images/{{ally.status.paralyze && 'paralyze-on.png' || 'paralyze-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Petrified'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'petrify')" class="status-icon" ng-src="main/assets/images/{{ally.status.petrify && 'petrify-on.png' || 'petrify-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Poisoned'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'poison')" class="status-icon" ng-src="main/assets/images/{{ally.status.poison && 'poison-on.png' || 'poison-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Prone'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'prone')" class="status-icon" ng-src="main/assets/images/{{ally.status.prone && 'prone-on.png' || 'prone-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Restrained'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'restrain')" class="status-icon" ng-src="main/assets/images/{{ally.status.restrain && 'restrained-on.png' || 'restrained-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Stunned'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'stun')" class="status-icon" ng-src="main/assets/images/{{ally.status.stun && 'stunned-on.png' || 'stunned-off.png'}}"/>
+              <img ng-mouseover="ally.hover = 'Unconcious'" ng-mouseleave="ally.hover = ''" ng-click="trackerVm.swapStatus(ally, 'unconcious')" class="status-icon" ng-src="main/assets/images/{{ally.status.unconcious && 'unconcious-on.png' || 'unconcious-off.png'}}"/>
+            </ion-item>
+            <ion-item class="item item-icon-right">
+              <i ng-click="trackerVm.deleteMe(ally)" ng-mouseover="ally.hover = 'Delete'" ng-mouseleave="ally.hover = ''" class="icon ion-android-delete"></i>
+              <span class="hint-text">{{ ally.hover || '&nbsp;' }}</span>
             </ion-item>
           </ion-list>
         </div>

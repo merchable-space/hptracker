@@ -8,19 +8,42 @@
 
   <ion-content>
     <div class="row wrap">
-      <div class="col col-20" ng-repeat="enemy in trackerVm.enemies">
+      <div class="col col-20" ng-repeat="enemy in trackerVm.enemies | filter: {deleted: false}">
         <div class="card">
           <ion-list>
-            <ion-item class="item item-icon-left">
+            <ion-item class="item item-icon-left" ng-mouseover="enemy.hover = 'Name'" ng-mouseleave="enemy.hover = ''" >
               <input type="text" ng-model="enemy.name">
               <i class="icon ion-pricetag"></i>
             </ion-item>
             <ion-item class="item item-icon-left">
-              <i class="icon ion-android-favorite"></i>
-              {{ enemy.hp }}
+                <i class="icon ion-android-favorite animated" ng-class="{'overheal-glow' : enemy.hp > enemy.maxhp}" ng-mouseover="enemy.hover = ((enemy.hp / enemy.maxhp)*100).toFixed(0) + '%'" ng-mouseleave="enemy.hover = ''" ng-style="{'opacity': (enemy.hp / enemy.maxhp)}"></i>
+                <input class="number-input center animated" ng-class="{'overheal' : enemy.hp > enemy.maxhp}" ng-mouseover="enemy.hover = 'Current HP'" ng-mouseleave="enemy.hover = ''" type="number" min="0" step="1" ng-model="enemy.hp">
+                <input class="number-input max center" ng-mouseover="enemy.hover = 'Max HP'" ng-mouseleave="enemy.hover = ''" type="number" min="1" step="1" ng-model="enemy.maxhp">
             </ion-item>
-            <ion-item class="item item-icon-left">
-              <i class="icon ion-help"></i>
+            <ion-item class="item item-icon-left item-icon-right">
+                <i ng-click="trackerVm.addHealth(enemy)" class="icon ion-plus" ng-mouseover="enemy.hover = 'Add HP'" ng-mouseleave="enemy.hover = ''"></i>
+                <input class="number-input center" type="number" min="1" step="1" ng-model="enemy.changeHpValue">
+                <i ng-click="trackerVm.remHealth(enemy)" class="icon ion-minus" ng-mouseover="enemy.hover = 'Remove HP'" ng-mouseleave="enemy.hover = ''"></i>
+            </ion-item>
+            <ion-item class="item status-house">
+              <img ng-mouseover="enemy.hover = 'Blinded'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'blind')" class="status-icon" ng-src="main/assets/images/{{enemy.status.blind && 'blind-on.png' || 'blind-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Charmed'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'charm')" class="status-icon" ng-src="main/assets/images/{{enemy.status.charm && 'charmed-on.png' || 'charmed-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Deafened'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'deaf')" class="status-icon" ng-src="main/assets/images/{{enemy.status.deaf && 'deaf-on.png' || 'deaf-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Fatigued'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'fatigue')" class="status-icon" ng-src="main/assets/images/{{enemy.status.fatigue && 'fatigue-on.png' || 'fatigue-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Grappled'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'grapple')" class="status-icon" ng-src="main/assets/images/{{enemy.status.grapple && 'grappled-on.png' || 'grappled-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Incapacitated'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'incap')" class="status-icon" ng-src="main/assets/images/{{enemy.status.incap && 'incapacitate-on.png' || 'incapacitate-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Invisible'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'invis')" class="status-icon" ng-src="main/assets/images/{{enemy.status.invis && 'invis-on.png' || 'invis-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Paralyzed'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'paralyze')" class="status-icon" ng-src="main/assets/images/{{enemy.status.paralyze && 'paralyze-on.png' || 'paralyze-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Petrified'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'petrify')" class="status-icon" ng-src="main/assets/images/{{enemy.status.petrify && 'petrify-on.png' || 'petrify-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Poisoned'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'poison')" class="status-icon" ng-src="main/assets/images/{{enemy.status.poison && 'poison-on.png' || 'poison-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Prone'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'prone')" class="status-icon" ng-src="main/assets/images/{{enemy.status.prone && 'prone-on.png' || 'prone-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Restrained'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'restrain')" class="status-icon" ng-src="main/assets/images/{{enemy.status.restrain && 'restrained-on.png' || 'restrained-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Stunned'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'stun')" class="status-icon" ng-src="main/assets/images/{{enemy.status.stun && 'stunned-on.png' || 'stunned-off.png'}}"/>
+              <img ng-mouseover="enemy.hover = 'Unconcious'" ng-mouseleave="enemy.hover = ''" ng-click="trackerVm.swapStatus(enemy, 'unconcious')" class="status-icon" ng-src="main/assets/images/{{enemy.status.unconcious && 'unconcious-on.png' || 'unconcious-off.png'}}"/>
+            </ion-item>
+            <ion-item class="item item-icon-right">
+              <i ng-click="trackerVm.deleteMe(enemy)" ng-mouseover="enemy.hover = 'Delete'" ng-mouseleave="enemy.hover = ''" class="icon ion-android-delete"></i>
+              <span class="hint-text">{{ enemy.hover || '&nbsp;' }}</span>
             </ion-item>
           </ion-list>
         </div>
