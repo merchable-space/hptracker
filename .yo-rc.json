@@ -1,0 +1,17 @@
+{
+  "generator-m-ionic": {
+    "answers": {
+      "appName": "HP Tracker",
+      "appId": "web.digialchem.hptrack",
+      "ionicCss": false,
+      "bowerPackages": [],
+      "platforms": [
+        "browser"
+      ],
+      "plugins": [],
+      "appModule": "hpTracker",
+      "ecosystems": [],
+      "install": "npm"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+<ion-view view-title="HP Tracker - Enemies">
+  <ion-header-bar align-title="center" class="bar-assertive">
+    <div class="buttons">
+      <button class="button button-icon icon ion-plus-round" ng-click="trackerVm.addEnemy()"></button>
+    </div>
+    <h1 class="title">HP Tracker - Enemies</h1>
+  </ion-header-bar>
+
+  <ion-content>
+    <div class="row wrap">
+      <div class="col col-20" ng-repeat="enemy in trackerVm.enemies">
+        <div class="card">
+          <ion-list>
+            <ion-item class="item item-icon-left">
+              <i class="icon ion-pricetag"></i>
+            </ion-item>
+            <ion-item class="item item-icon-left">
+              <i class="icon ion-android-favorite"></i>
+            </ion-item>
+            <ion-item class="item item-icon-left">
+              <i class="icon ion-help"></i>
+            </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
